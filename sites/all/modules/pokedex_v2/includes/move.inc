@@ -2,8 +2,11 @@
 
 /**
  * @file
- * Migration data for types.
+ * Migration data for Pokemon: Moves
+ * TODO: db_change_field() for sourceid int -> varchar
  */
+
+
 
 class PokedexV2MoveNodeMigration extends Migration {
   public function __construct(array $arguments) {
@@ -36,7 +39,7 @@ class PokedexV2MoveNodeMigration extends Migration {
       $this->machineName,
       array(
         'name' => array(
-          'type' => 'varchar', // for now this needs to be manually changed in db
+          'type' => 'varchar',
           'not null' => TRUE,
         )
       ),

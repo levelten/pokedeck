@@ -2,7 +2,8 @@
 
 /**
  * @file
- * Migration data for types.
+ * Migration data for Pokemon Characters.
+ * TODO: db_change_field() for sourceid int -> varchar
  */
 
 class PokedexV2NodeMigration extends Migration {
