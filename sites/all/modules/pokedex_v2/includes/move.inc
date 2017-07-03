@@ -35,8 +35,8 @@ class PokedexV2MoveNodeMigration extends Migration {
     $this->map = new MigrateSQLMap(
       $this->machineName,
       array(
-        'name' => array(
-          'type' => 'varchar',
+        'id' => array(
+          'type' => 'int',
           'not null' => TRUE,
         )
       ),
