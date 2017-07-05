@@ -1,0 +1,96 @@
+<?php
+
+function pokedex_v2_enable() {
+  drupal_set_message(t('The pokedex module was successfully disabled.'), 'status');
+}
+
+function pokedex_v2_disable() {
+  drupal_set_message(t('The pokedex module was successfully disabled.'), 'status');
+}
+
+
+function pokedex_v2_install() {
+  $types = array('Bug', 'Dragon', 'Ice', 'Fighting', 'Fire', 'Flying', 'Grass', 'Ghost', 'Ground', 'Electric', 'Normal', 'Poison', 'Psychic', 'Rock', 'Water', 'Fairy', 'Steel', 'Dark', '???');
+  $gens = array('Generation I', 'Generation II', 'Generation III');
+  $buddy_sizes = array('Baby', 'Medium', 'Shoulder', 'Flying', 'Big');
+
+    $type_vocab = (object) array(
+      'name' => 'Pokemon: Types',
+      'description' => 'Terms for pokemon types',
+      'machine_name' => 'pokedex_vocab',
+    );
+    taxonomy_vocabulary_save($type_vocab);
+
+    $vocab = taxonomy_vocabulary_machine_name_load('pokedex_vocab');
+
+    foreach ($types as $type) {
+
+      $term = (object) array(
+        'name' => $type,
+        'description' => $type . ' Pokemon',
+        'vid' => $vocab->vid,
+      );
+      taxonomy_term_save($term);
+    }
+
+
+  $type_vocab = (object) array(
+    'name' => 'Pokemon: Buddy Sizes',
+    'description' => 'Buddy sizes of different Pokemon',
+    'machine_name' => 'pokedex_buddy_size_vocab',
+  );
+  taxonomy_vocabulary_save($type_vocab);
+
+  $vocab = taxonomy_vocabulary_machine_name_load('pokedex_buddy_size_vocab');
+
+  foreach ($buddy_sizes as $size) {
+
+    $term = (object) array(
+      'name' => $size,
+      'description' => $size,
+      'vid' => $vocab->vid,
+    );
+    taxonomy_term_save($term);
+  }
+
+
+
+  $type_vocab = (object) array(
+    'name' => 'Pokemon: Generations',
+    'description' => 'Generation of different Pokemon',
+    'machine_name' => 'pokedex_gen_vocab',
+  );
+  taxonomy_vocabulary_save($type_vocab);
+
+  $vocab = taxonomy_vocabulary_machine_name_load('pokedex_gen_vocab');
+
+  foreach ($gens as $gen) {
+
+    $term = (object) array(
+      'name' => $gen,
+      'description' => $gen,
+      'vid' => $vocab->vid,
+    );
+    taxonomy_term_save($term);
+  }
+
+
+}
+
+// can uncomment if you think user will want tax terms gone after uninstalling
+function pokedex_v2_uninstall() {
+  /*$taxes = array('pokedex_vocab', 'pokedex_resistant_vocab', 'poke_weakness_vocab');
+
+  for ($i = 0; $i < count($taxes); $i++) {
+    $vocab = taxonomy_vocabulary_machine_name_load($taxes[$i]);
+    taxonomy_vocabulary_delete($vocab->vid);
+  }
+
+  $vocab = taxonomy_vocabulary_machine_name_load('pokemon_gen_vocab');
+  taxonomy_vocabulary_delete($vocab->vid);
+
+  $vocab = taxonomy_vocabulary_machine_name_load('pokemon_buddy_size_vocab');
+  taxonomy_vocabulary_delete($vocab->vid);*/
+
+
+}

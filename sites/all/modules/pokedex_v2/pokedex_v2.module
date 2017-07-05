@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the pokedex_v2 feature.
+ */
+
+include_once 'pokedex_v2.features.inc';
