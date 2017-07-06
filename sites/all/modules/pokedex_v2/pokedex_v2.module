@@ -40,13 +40,11 @@ function pokedex_v2_ds_field_next_pokemon($field){
     ->condition('field_number_value', $next, '=')
     ->fields('n', array('entity_id'));
   $result = $query->execute();
-  dpm($result);
   //get node from nid
   foreach( $result as $record)
   $pokemon_id = $record->entity_id;
   //load for access to fields
   $pokemon = node_load($pokemon_id);
-  dpm($pokemon);
   //create output
   $output = '';
   $output .= '<i class="fa fa-angle-double-right" aria-hidden="true"></i>';
