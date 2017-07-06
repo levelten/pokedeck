@@ -21,6 +21,17 @@ function pokedex_v2_ds_fields_info($entity_type) {
       'field_type' => DS_FIELD_TYPE_FUNCTION,
       'function' => 'pokedex_v2_ds_field_prev_pokemon',
     );
+  $fields['stats_as_bars'] = array(
+    'title' => t('Stats Percentage Bars'),
+    'field_type' => DS_FIELD_TYPE_FUNCTION,
+    'function' => 'pokedex_v2_ds_field_stats_as_bars',
+    'properties' => array(
+      'formatters' => array(
+        'stats_as_bars' => 'Percentage Bars',
+      ),
+    ),
+  );
+
   return array('node' => $fields,);
 }
 
@@ -81,4 +92,48 @@ function pokedex_v2_ds_field_prev_pokemon($field){
   //wrap in link
   $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
   return $output;
+}
+
+/*
+ * Displays the 3 stats of a pokemon as Bars
+ */
+function pokedex_v2_ds_field_stats_as_bars($field){
+  // Get information about the entity being rated and the formatter we're using.
+  $entity = $field['entity'];
+  $formatter = $field['formatter'];
+  //maxes
+  $max_stam = 510;
+  $max_atk = 330;
+  $max_def = 396;
+  //percents
+  $perc_stam = $entity->field_stamina['und'][0]['value']/$max_stam*100;
+  $perc_stam = sprintf("%02.0f", $perc_stam);
+  $perc_atk = $entity->field_attack['und'][0]['value']/$max_atk*100;
+  $perc_atk = sprintf("%02.0f", $perc_atk);
+  $perc_def = $entity->field_defense['und'][0]['value']/$max_def*100;
+  $perc_def = sprintf("%02.0f", $perc_def);
+  $percentages = array(
+    $entity->field_stamina['und'][0]['value'] => $perc_stam,
+    $entity->field_attack['und'][0]['value'] => $perc_atk,
+    $entity->field_defense['und'][0]['value'] => $perc_def,
+  );
+  //get color of first type of the pokemon
+  $color = $entity->field_type['und'][0]['taxonomy_term']->field_type_color;
+
+ if ($formatter == 'stats_as_bars'){
+   //for all three stats
+   foreach($percentages as $stat => $percent){
+     //inner bar has % width
+     $output = '<div class="inner-percentage-bar" style="';
+     $output .= 'width:'. $percent . '%;';
+     //background color matches type
+     $output .= 'background-color: '. $color . ';">';
+     //and has the stat inside
+     $output .= $stat. '</div>';
+     //wrap a div around it with grey background
+     $output = '<div class="outer-percentage-bar" style="background: #676767;">'. $output .'</div>';
+   }
+ }
+
+ return $output;
 }
