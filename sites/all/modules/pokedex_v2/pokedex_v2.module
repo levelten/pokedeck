@@ -5,3 +5,79 @@
  */
 
 include_once 'pokedex_v2.features.inc';
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function pokedex_v2_ds_fields_info($entity_type) {
+  $fields = array();
+  $fields['next_pokemon'] = array(
+      'title' => t('Next Pokemon'),
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'pokedex_v2_ds_field_next_pokemon',
+    );
+  $fields['prev_pokemon'] = array(
+      'title' => t('Previous Pokemon'),
+      'field_type' => DS_FIELD_TYPE_FUNCTION,
+      'function' => 'pokedex_v2_ds_field_prev_pokemon',
+    );
+  return array('node' => $fields,);
+}
+
+
+/*
+ * Store next pokemon by number.
+ */
+function pokedex_v2_ds_field_next_pokemon($field){
+  //entity we are working with (pokemon)
+  $entity = $field['entity'];
+  $number = $entity->field_number['und'][0]['value'];
+  //numbers are stored as 3 digit strings: "005"
+  $next = sprintf("%03d", $number+1);
+  //db query to get next pokemon nid
+  $query = db_select( 'field_data_field_number', 'n');
+  $query
+    ->condition('field_number_value', $next, '=')
+    ->fields('n', array('entity_id'));
+  $result = $query->execute();
+  dpm($result);
+  //get node from nid
+  foreach( $result as $record)
+  $pokemon_id = $record->entity_id;
+  //load for access to fields
+  $pokemon = node_load($pokemon_id);
+  dpm($pokemon);
+  //create output
+  $output = '';
+  $output .= '<i class="fa fa-angle-double-right" aria-hidden="true"></i>';
+  $output .= '<p>' . $pokemon->title . '</p>';
+  $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
+  return $output;
+}
+
+function pokedex_v2_ds_field_prev_pokemon($field){
+  //entity we are working with (pokemon)
+  $entity = $field['entity'];
+  $number = $entity->field_number['und'][0]['value'];
+  //numbers are stored as 3 digit strings: "005"
+  $prev = sprintf("%03d", $number-1);
+  //db query to get next pokemon nid
+  $query = db_select( 'field_data_field_number', 'n');
+  $query
+    ->condition('field_number_value', $prev, '=')
+    ->fields('n', array('entity_id'));
+  $result = $query->execute();
+  dpm($result);
+  //get node from nid
+  foreach( $result as $record)
+  $pokemon_id = $record->entity_id;
+  //load for access to fields
+  $pokemon = node_load($pokemon_id);
+  dpm($pokemon);
+  //create output
+  $output = '';
+  $output .= '<i class="fa fa-angle-double-left" aria-hidden="true"></i>';
+  $output .= '<p>' . $pokemon->title . '</p>';
+  $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
+  return $output;
+}
