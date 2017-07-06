@@ -113,26 +113,30 @@ function pokedex_v2_ds_field_stats_as_bars($field){
   $perc_def = $entity->field_defense['und'][0]['value']/$max_def*100;
   $perc_def = sprintf("%02.0f", $perc_def);
   $percentages = array(
-    $entity->field_stamina['und'][0]['value'] => $perc_stam,
     $entity->field_attack['und'][0]['value'] => $perc_atk,
     $entity->field_defense['und'][0]['value'] => $perc_def,
+    $entity->field_stamina['und'][0]['value'] => $perc_stam,
   );
   //get color of first type of the pokemon
-  $color = $entity->field_type['und'][0]['taxonomy_term']->field_type_color;
+  //dpm($entity);
+  $color = $entity->field_type['und'][0]['entity']->field_type_color['und'][0]['value'];
 
  if ($formatter == 'stats_as_bars'){
    //for all three stats
+   $output = '';
    foreach($percentages as $stat => $percent){
+     $output .= '<div class="outer-percentage-bar col-md-9" style="background: #676767;">';
      //inner bar has % width
-     $output = '<div class="inner-percentage-bar" style="';
+     $output .= '<div class="inner-percentage-bar" style="';
      $output .= 'width:'. $percent . '%;';
      //background color matches type
      $output .= 'background-color: '. $color . ';">';
      //and has the stat inside
      $output .= $stat. '</div>';
      //wrap a div around it with grey background
-     $output = '<div class="outer-percentage-bar" style="background: #676767;">'. $output .'</div>';
+     $output .= '</div>';
    }
+   $output = '<div class="col-md-3"><p>Attack</p><p>Defense</p><p>Stamina</p></div>' . $output;
  }
 
  return $output;
