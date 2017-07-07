@@ -43,28 +43,34 @@ function pokedex_v2_ds_field_next_pokemon($field){
   //entity we are working with (pokemon)
   $entity = $field['entity'];
   $number = $entity->field_number['und'][0]['value'];
-  //numbers are stored as 3 digit strings: "005"
-  $next = sprintf("%03d", $number+1);
-  //db query to get next pokemon nid
-  $query = db_select( 'field_data_field_number', 'n');
-  $query
-    ->condition('field_number_value', $next, '=')
-    ->fields('n', array('entity_id'));
-  $result = $query->execute();
-  //get node from nid
-  foreach( $result as $record){
-    $pokemon_id = $record->entity_id;
-  }
-  //load for access to fields
-  $pokemon = node_load($pokemon_id);
-  //create output
-  $output = '';
-  $output .= '<i class="fa fa-angle-double-right" aria-hidden="true"></i>';
-  $output .= '<p>' . $pokemon->title . '</p>';
-  $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
-  //wrap in link
-  $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
-  return $output;
+    //numbers are stored as 3 digit strings: "005"
+    $next = sprintf("%03d", $number+1);
+    //db query to get next pokemon nid
+    $query = db_select( 'field_data_field_number', 'n');
+    $query
+      ->condition('field_number_value', $next, '=')
+      ->fields('n', array('entity_id'));
+    $result = $query->execute();
+    //check if there were results
+    if(!$result->rowCount()){
+      $output = '';
+    }
+    else{
+      //get node from nid
+      foreach( $result as $record){
+        $pokemon_id = $record->entity_id;
+      }
+      //load for access to fields
+      $pokemon = node_load($pokemon_id);
+      //create output
+      $output = '';
+      $output .= '<i class="fa fa-angle-double-right" aria-hidden="true"></i>';
+      $output .= '<p>' . $pokemon->title . '</p>';
+      $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
+      //wrap in link
+      $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+    }
+    return $output;
 }
 
 function pokedex_v2_ds_field_prev_pokemon($field){
@@ -79,18 +85,24 @@ function pokedex_v2_ds_field_prev_pokemon($field){
     ->condition('field_number_value', $prev, '=')
     ->fields('n', array('entity_id'));
   $result = $query->execute();
-  //get node from nid
-  foreach( $result as $record)
-  $pokemon_id = $record->entity_id;
-  //load for access to fields
-  $pokemon = node_load($pokemon_id);
-  //create output
-  $output = '';
-  $output .= '<i class="fa fa-angle-double-left" aria-hidden="true"></i>';
-  $output .= '<p>' . $pokemon->title . '</p>';
-  $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
-  //wrap in link
-  $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+  //check if there were results
+  if(!$result->rowCount()){
+    $output = '';
+  }
+  else{
+    //get node from nid
+    foreach( $result as $record)
+    $pokemon_id = $record->entity_id;
+    //load for access to fields
+    $pokemon = node_load($pokemon_id);
+    //create output
+    $output = '';
+    $output .= '<i class="fa fa-angle-double-left" aria-hidden="true"></i>';
+    $output .= '<p>' . $pokemon->title . '</p>';
+    $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
+    //wrap in link
+    $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+  }
   return $output;
 }
 
@@ -118,7 +130,6 @@ function pokedex_v2_ds_field_stats_as_bars($field){
     $entity->field_stamina['und'][0]['value'] => $perc_stam,
   );
   //get color of first type of the pokemon
-  //dpm($entity);
   $color = $entity->field_type['und'][0]['entity']->field_type_color['und'][0]['value'];
 
  if ($formatter == 'stats_as_bars'){
@@ -138,6 +149,5 @@ function pokedex_v2_ds_field_stats_as_bars($field){
    }
    $output = '<div class="col-md-3"><p>Attack</p><p>Defense</p><p>Stamina</p></div>' . $output;
  }
-
  return $output;
 }
