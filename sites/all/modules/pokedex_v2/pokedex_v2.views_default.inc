@@ -343,7 +343,7 @@ function pokedex_v2_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'grid';
-  $handler->display->display_options['style_options']['columns'] = '9';
+  $handler->display->display_options['style_options']['columns'] = '12';
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = FALSE;
   /* Field: Content: Title */
@@ -400,7 +400,60 @@ function pokedex_v2_views_default_views() {
   $handler->display->display_options['filters']['field_generation_tid']['field'] = 'field_generation_tid';
   $handler->display->display_options['filters']['field_generation_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_generation_tid']['expose']['operator_id'] = 'field_generation_tid_op';
-  $handler->display->display_options['filters']['field_generation_tid']['expose']['label'] = 'Generation';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['label'] = 'Generation (field_generation)';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['identifier'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_generation_tid']['vocabulary'] = 'pokedex_gen_vocab';
+
+  /* Display: Global Pokedex */
+  $handler = $view->new_display('page', 'Global Pokedex', 'page');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pokemon' => 'pokemon',
+  );
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['title']['expose']['description'] = 'Search pokemon by name';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_filter'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '0';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_min_chars'] = '3';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
+  /* Filter criterion: Content: Generation (field_generation) */
+  $handler->display->display_options['filters']['field_generation_tid']['id'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['table'] = 'field_data_field_generation';
+  $handler->display->display_options['filters']['field_generation_tid']['field'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator_id'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['label'] = 'Generation (field_generation)';
   $handler->display->display_options['filters']['field_generation_tid']['expose']['operator'] = 'field_generation_tid_op';
   $handler->display->display_options['filters']['field_generation_tid']['expose']['identifier'] = 'field_generation_tid';
   $handler->display->display_options['filters']['field_generation_tid']['expose']['remember_roles'] = array(
@@ -410,14 +463,124 @@ function pokedex_v2_views_default_views() {
   );
   $handler->display->display_options['filters']['field_generation_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_generation_tid']['vocabulary'] = 'pokedex_gen_vocab';
-  $handler->display->display_options['filters']['field_generation_tid']['hierarchy'] = 1;
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'global-pokedex';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Global Pokedex';
   $handler->display->display_options['menu']['name'] = 'main-menu';
+
+  /* Display: Kanto (Gen 1) Species */
+  $handler = $view->new_display('block', 'Kanto (Gen 1) Species', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Kanto (Gen 1) Species';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pokemon' => 'pokemon',
+  );
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['title']['expose']['description'] = 'Search pokemon by name';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_filter'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '0';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_min_chars'] = '3';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
+  /* Filter criterion: Content: Generation (field_generation) */
+  $handler->display->display_options['filters']['field_generation_tid']['id'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['table'] = 'field_data_field_generation';
+  $handler->display->display_options['filters']['field_generation_tid']['field'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['value'] = array(
+    437 => '437',
+  );
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator_id'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['label'] = 'Generation (field_generation)';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['identifier'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_generation_tid']['vocabulary'] = 'pokedex_gen_vocab';
+
+  /* Display: Johto (Gen 2) Species */
+  $handler = $view->new_display('block', 'Johto (Gen 2) Species', 'block_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Johto (Gen 2) Species';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'pokemon' => 'pokemon',
+  );
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['title']['expose']['description'] = 'Search pokemon by name';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_filter'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_items'] = '0';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_min_chars'] = '3';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_field'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_suggestion'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_raw_dropdown'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['autocomplete_dependent'] = 0;
+  /* Filter criterion: Content: Generation (field_generation) */
+  $handler->display->display_options['filters']['field_generation_tid']['id'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['table'] = 'field_data_field_generation';
+  $handler->display->display_options['filters']['field_generation_tid']['field'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['value'] = array(
+    438 => '438',
+  );
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator_id'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['label'] = 'Generation (field_generation)';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['operator'] = 'field_generation_tid_op';
+  $handler->display->display_options['filters']['field_generation_tid']['expose']['identifier'] = 'field_generation_tid';
+  $handler->display->display_options['filters']['field_generation_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_generation_tid']['vocabulary'] = 'pokedex_gen_vocab';
   $export['global_pokedex'] = $view;
 
   return $export;
