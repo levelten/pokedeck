@@ -8,5 +8,39 @@
   // Teaser view mode for pokemon_move
   &.node-teaser {
     border-radius: 3px;
+    .move-container{
+      @move-height: 60px;
+      color:white;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.32);
+      .sub-text{
+        font-size:12px
+      }
+      .move-dps{
+        height:@move-height;
+        border-right: 1px solid white;
+        border-radius: 2px 0px 0px 2px;
+        padding:0px;
+        div{
+          .vertical-hack;
+          text-align: center;
+          width: 100%;
+          p{
+            margin-bottom: 0px;
+          }
+        }
+      }
+      .move-info{
+        height:@move-height;
+        padding: 0px;
+        border-radius: 0px 2px 2px 0px;
+        div{
+          .vertical-hack;
+          text-align: left;
+          width: 100%;
+          padding-left: 2%;
+
+        }
+      }
+    }
   }
 }
