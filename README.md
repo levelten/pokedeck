@@ -1,3 +1,4 @@
+Waffle.io status
 [![Stories in Ready](https://badge.waffle.io/levelten/pokedeck.png?label=ready&title=Ready)](http://waffle.io/levelten/pokedeck)
 
 CONTENTS OF THIS FILE
