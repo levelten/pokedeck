@@ -1,5 +1,5 @@
-name = pokedex
-description = pokdex bootstrap theme
+name = Pokedex
+description = A subtheme of Bootstrap for Pokedex.
 core = 7.x
 base theme = bootstrap
 
