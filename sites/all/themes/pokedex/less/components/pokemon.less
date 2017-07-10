@@ -13,15 +13,20 @@
 
       }
     }
-  }
-}
 
-/*
-  for top left group section (number) to make it float over image
-*/
-.group-top-left {
-  display: inline-block;
-  position: relative;
+    // Group top section.
+    .group-top-section {
+      .group-top-left {
+        display: inline-block;
+        position: relative;
+      }
+      .group-top-right {
+        background-color: rgba(0, 0, 0, 0.25);
+        color: white;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+      }
+    }
+  }
 }
 
 /*
@@ -30,7 +35,11 @@
 .number-pos {
   position: absolute;
   z-index: 1;
-  margin-top: 10px;
+  top: 4px;
+  left: 6px;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  font-size: 1.2em;
 }
 
 /*
