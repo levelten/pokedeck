@@ -27,13 +27,13 @@ function pokedex_preprocess_page(&$variables) {
     // create style string and add to page.
     $style = '';
     foreach ($attributes as $key => $value) {
-		  $style .= ".pokemon-type-${key} .color {";
+		  $style .= ".type-${key} .color {";
 		  $style .= "color: ${value['color']};";
 		  $style .= "}";
-      $style .= ".pokemon-type-${key} .bg-color {";
+      $style .= ".type-${key} .bg-color {";
       $style .= "background-color: ${value['color']};";
       $style .= "}";
-      $style .= ".pokemon-type-${key} .bg-image {";
+      $style .= ".type-${key} .bg-image {";
       $style .= "background-image: url('${value['image']}');";
       $style .= "background-size: cover;";
       $style .= "}";
@@ -48,12 +48,12 @@ function pokedex_preprocess_page(&$variables) {
  * @param $variables
  */
 function pokedex_preprocess_node(&$variables) {
-
 	// Only pokemon.
 	if ($variables['type'] == 'pokemon') {
     // Get type from pokemon, add to class list.
-    if (!empty($variables['field_type'])) {
-      $variables['classes_array'][] = 'pokemon-type-'.$variables['field_type'][0]['entity']->name;
+    $type = field_get_items('node', $variables['node'], 'field_type');
+    if (!empty($type)) {
+      $variables['classes_array'][] = 'type-'.$type[0]['entity']->name;
     }
 	}
 }
