@@ -12,24 +12,24 @@ function pokedex_preprocess_page(&$variables) {
 	// Load all Type terms. Create related classes.
 	$vocabulary = taxonomy_vocabulary_machine_name_load('pokedex_vocab');
 	if (!empty($vocabulary)) {
-		$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
-		$attributes = [];
-		foreach ($terms as $term) {
-		  $image = (!empty($term->field_image['und'][0]['uri'])) ? $term->field_image['und'][0]['uri'] : NULL;
+    $terms = entity_load('taxonomy_term', FALSE, ['vid' => $vocabulary->vid]);
+    $attributes = [];
+    foreach ($terms as $term) {
+      $image = (!empty($term->field_image['und'][0]['uri'])) ? $term->field_image['und'][0]['uri'] : NULL;
       $color = (!empty($term->field_type_color['und'][0]['safe_value'])) ? $term->field_type_color['und'][0]['safe_value'] : 'rgba(0,0,0,0)';
-			$attributes[$term->name] = [
-				'color' => $color,
-				'image' => ($image) ? file_create_url($image) : NULL,
-			];
-		}
+      $attributes[$term->name] = [
+        'color' => $color,
+        'image' => ($image) ? file_create_url($image) : NULL,
+      ];
+    }
 
-		// Could probably save a step, but for clarity,
+    // Could probably save a step, but for clarity,
     // create style string and add to page.
     $style = '';
     foreach ($attributes as $key => $value) {
-		  $style .= ".type-${key} .color {";
-		  $style .= "color: ${value['color']};";
-		  $style .= "}";
+      $style .= ".type-${key} .color {";
+      $style .= "color: ${value['color']};";
+      $style .= "}";
       $style .= ".type-${key} .bg-color {";
       $style .= "background-color: ${value['color']};";
       $style .= "}";
@@ -38,10 +38,27 @@ function pokedex_preprocess_page(&$variables) {
       $style .= "background-size: cover;";
       $style .= "background-position: center;";
       $style .= "}";
-    }
 
-    drupal_add_css($style, array('type' => 'inline'));
-	}
+      $hex = str_replace("#", "", $value['color']);
+
+      if(strlen($hex) == 3) {
+        $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+        $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+        $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+      } else {
+        $r = hexdec(substr($hex,0,2));
+        $g = hexdec(substr($hex,2,2));
+        $b = hexdec(substr($hex,4,2));
+      }
+
+      $style .= ".type-${key} .bg-color-tran {";
+      $style .= "background-color: rgba(${r}, ${g}, ${b}, 0.65);";
+      $style .= "color: white;";
+      $style .= "text-shadow: 0 0 10px rgba(0, 0, 0, 0.35);";
+      $style .= "}";
+    }
+  }
+  drupal_add_css($style, array('type' => 'inline'));
 }
 
 /**
