@@ -36,6 +36,7 @@ function pokedex_preprocess_page(&$variables) {
       $style .= ".type-${key} .bg-image {";
       $style .= "background-image: url('${value['image']}');";
       $style .= "background-size: cover;";
+      $style .= "background-position: center;";
       $style .= "}";
     }
 
@@ -52,8 +53,12 @@ function pokedex_preprocess_node(&$variables) {
 	if ($variables['type'] == 'pokemon') {
     // Get type from pokemon, add to class list.
     $type = field_get_items('node', $variables['node'], 'field_type');
-    if (!empty($type)) {
+    if (!empty($type[0]['entity'])) {
       $variables['classes_array'][] = 'type-'.$type[0]['entity']->name;
+    } elseif (!empty($type[0]['tid'])) {
+      // @todo Add caching because looking up terms is a huge performance issue.
+      $term = taxonomy_term_load($type[0]['tid']);
+      $variables['classes_array'][] = 'type-'.$term->name;
     }
 	}
 }
