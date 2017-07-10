@@ -11,7 +11,7 @@
     <?php print render($title_suffix['contextual_links']); ?>
   <?php endif; ?>
     <h2 class="global-title">The Global Pokédex</h2>
-    <p style="text-align: center; margin: 0;">The Global Pokedex contains data on species found by travelers around the world. Select a species to learn more!</p>
+    <p class="global-slogan">The Global Pokedex contains data on species found by travelers around the world. Select a species to learn more!</p>
     <hr>
     <div class="pokemon-card">
       <div class="row card-shadow">
