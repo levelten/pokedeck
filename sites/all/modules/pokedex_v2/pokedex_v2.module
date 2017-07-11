@@ -136,7 +136,7 @@ function pokedex_v2_ds_field_stats_as_bars($field){
    //for all three stats
    $output = '';
    foreach($percentages as $stat => $percent){
-     $output .= '<div class="outer-percentage-bar col-md-9" style="background: #676767;">';
+     $output .= '<div class="outer-percentage-bar col-md-9">';
      //inner bar has % width
      $output .= '<div class="inner-percentage-bar" style="';
      $output .= 'width:'. $percent . '%;';
@@ -147,7 +147,7 @@ function pokedex_v2_ds_field_stats_as_bars($field){
      //wrap a div around it with grey background
      $output .= '</div>';
    }
-   $output = '<div class="col-md-3"><p>Attack</p><p>Defense</p><p>Stamina</p></div>' . $output;
+   $output = '<div class="col-md-3 stat-names"><p>Attack</p><p>Defense</p><p>Stamina</p></div>' . $output;
  }
  return $output;
 }
