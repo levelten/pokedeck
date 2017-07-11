@@ -19,7 +19,7 @@ function pokedex_preprocess_page(&$variables) {
       $color = (!empty($term->field_type_color['und'][0]['safe_value'])) ? $term->field_type_color['und'][0]['safe_value'] : 'rgba(0,0,0,0)';
       $attributes[$term->name] = [
         'color' => $color,
-        'image' => ($image) ? file_create_url($image) : NULL,
+        'image' => ($image) ? image_style_url('top_header', $image) : NULL, //file_create_url($image) : NULL,
       ];
     }
 

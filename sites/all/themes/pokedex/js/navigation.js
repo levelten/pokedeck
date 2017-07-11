@@ -18,3 +18,11 @@ window.onload = function()
 
 	};
 };
+//show type bonus tag on moves with the same type as the pokemon using it
+jQuery(document).ready(function($){
+	//each type of the pokemon
+	$('.field-name-type-color-label').children().each(function(){
+		var type = '.move-type-' + $(this).html();
+		$(type).find('.type-bonus').removeClass('hidden');
+	});
+});
