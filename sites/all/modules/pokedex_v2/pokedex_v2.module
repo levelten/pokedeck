@@ -68,7 +68,9 @@ function pokedex_v2_ds_field_next_pokemon($field){
       $output .= '<p>' . $pokemon->title . '</p>';
       $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
       //wrap in link
-      $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+      $output = l($output, 'node/'. $pokemon->nid,
+          array('html' => TRUE,
+                'attributes' => array('id' => 'next')));
     }
     return $output;
 }
@@ -101,7 +103,9 @@ function pokedex_v2_ds_field_prev_pokemon($field){
     $output .= '<p>' . $pokemon->title . '</p>';
     $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
     //wrap in link
-    $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+    $output = l($output, 'node/'. $pokemon->nid,
+        array('html' => TRUE,
+              'attributes' => array('id' => 'prev')));
   }
   return $output;
 }
