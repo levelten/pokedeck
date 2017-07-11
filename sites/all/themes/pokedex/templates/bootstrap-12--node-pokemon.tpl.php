@@ -14,6 +14,7 @@
     <p class="global-slogan">The Global Pokedex contains data on species found by travelers around the world. Select a species to learn more!</p>
     <hr>
     <div class="pokemon-card">
+        <a class="btn" style="color: white; text-decoration: none; margin:0 auto 20px auto; display:block; width:290px;" href="/">« Back</a>
       <div class="row card-shadow">
         <<?php print $central_wrapper; ?> class="col-sm-12 <?php print $central_classes; ?>">
           <?php print $central; ?>
