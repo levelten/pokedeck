@@ -25,6 +25,8 @@ regions[page_bottom]    = 'Page bottom'
 ;;;;;;;;;;;;;;;;;;;;;
 
 stylesheets[all][] = less/style.less
+stylesheets[all][] = fonts/fonts.css
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;
