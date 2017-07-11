@@ -1,5 +1,5 @@
 /*
-  Styles for pokedex page content.
+  Styles for global pokedex
 */
 
 .global-title {
@@ -12,12 +12,13 @@
 .block-title {
   font-weight:normal;
   text-align: center;
+  color: white;
 }
 
 .global-body {
   text-align: center;
   margin: 0;
-  text-shadow: 0 0 13px black;
+  text-shadow: 0 0 13px white;
 }
 
 .global-slogan {
@@ -28,4 +29,24 @@
 
 .views-view-grid {
     margin: 0px auto;
+}
+
+// heading block for pokemon
+#block-block-2 {
+  .header-btn {
+    border-radius: 0;
+    background: 0;
+    border: 1px solid #FFF;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 17px;
+    padding: 6px 100px 8px;
+    color: white;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    &:hover {
+      background-color: #434343;
+      border: 1px solid rgba(0, 0, 0, 0);
+    }
+  }
 }
