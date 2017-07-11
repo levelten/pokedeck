@@ -68,7 +68,9 @@ function pokedex_v2_ds_field_next_pokemon($field){
       $output .= '<p>' . $pokemon->title . '</p>';
       $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
       //wrap in link
-      $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+      $output = l($output, 'node/'. $pokemon->nid,
+          array('html' => TRUE,
+                'attributes' => array('id' => 'next')));
     }
     return $output;
 }
@@ -101,7 +103,9 @@ function pokedex_v2_ds_field_prev_pokemon($field){
     $output .= '<p>' . $pokemon->title . '</p>';
     $output .= '<p>' . $pokemon->field_number['und'][0]['value'] . '</p>';
     //wrap in link
-    $output = l($output, 'node/'. $pokemon->nid, array('html' => TRUE));
+    $output = l($output, 'node/'. $pokemon->nid,
+        array('html' => TRUE,
+              'attributes' => array('id' => 'prev')));
   }
   return $output;
 }
@@ -125,9 +129,14 @@ function pokedex_v2_ds_field_stats_as_bars($field){
   $perc_def = $entity->field_defense['und'][0]['value']/$max_def*100;
   $perc_def = sprintf("%02.0f", $perc_def);
   $percentages = array(
-    $entity->field_attack['und'][0]['value'] => $perc_atk,
-    $entity->field_defense['und'][0]['value'] => $perc_def,
-    $entity->field_stamina['und'][0]['value'] => $perc_stam,
+    'Attack' => $perc_atk,
+    'Defense' => $perc_def,
+    'Stamina' => $perc_stam,
+  );
+  $stat_numbers = array(
+    'Attack' => $entity->field_attack['und'][0]['value'],
+    'Defense' => $entity->field_defense['und'][0]['value'],
+    'Stamina' => $entity->field_stamina['und'][0]['value'],
   );
   //get color of first type of the pokemon
   $color = $entity->field_type['und'][0]['entity']->field_type_color['und'][0]['value'];
@@ -136,18 +145,19 @@ function pokedex_v2_ds_field_stats_as_bars($field){
    //for all three stats
    $output = '';
    foreach($percentages as $stat => $percent){
-     $output .= '<div class="outer-percentage-bar col-md-9" style="background: #676767;">';
+     //stat name first
+     $output .= '<div class="col-md-3 stat-names"><p>' . $stat . '</p></div>';
+     $output .= '<div class="outer-percentage-bar col-md-9">';
      //inner bar has % width
      $output .= '<div class="inner-percentage-bar" style="';
      $output .= 'width:'. $percent . '%;';
      //background color matches type
      $output .= 'background-color: '. $color . ';">';
      //and has the stat inside
-     $output .= $stat. '</div>';
+     $output .= $stat_numbers[$stat]. '</div>';
      //wrap a div around it with grey background
      $output .= '</div>';
    }
-   $output = '<div class="col-md-3"><p>Attack</p><p>Defense</p><p>Stamina</p></div>' . $output;
  }
  return $output;
 }

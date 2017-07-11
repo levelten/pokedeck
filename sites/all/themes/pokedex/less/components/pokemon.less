@@ -12,9 +12,71 @@
         margin-bottom: 1em;
 
       }
-
     }
 
-  }
+    // Group top section.
+    .group-top-section {
+      .group-top-left {
+        display: inline-block;
+        position: relative;
+      }
+    }
 
+    // group stat section
+    .group-stats-section {
+      background-color: #434343;
+    }
+
+    // group pager section
+    .group-pager-section {
+      background-color: #434343;
+    }
+
+    .btn {
+      border-radius: 0;
+      background: 0;
+      border: 1px solid #FFF;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 17px;
+      padding: 6px 25px 8px;
+      color: white;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+    }
+
+    .btn:hover {
+      background-color: #434343;
+      border: 1px solid rgba(0, 0, 0, 0);
+
+    }
+  }
+}
+
+/*
+  for top left group section (number) to make it float over image
+*/
+.number-pos {
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  left: 6px;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  font-size: 1.2em;
+  letter-spacing: .1em;
+}
+
+/*
+  style for pokemon name and card heading
+*/
+.card-title {
+  margin:14px 0 0;
+  letter-spacing:3px;
+  font-size:22px;
+}
+
+.region.region-footer {
+  text-align: center;
+  color: white;
 }

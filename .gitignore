@@ -47,3 +47,4 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+.idea

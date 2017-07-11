@@ -1,0 +1,67 @@
+/*
+ * Wanted to try flex display, silphroad uses flex for their buddy section
+ * this is pretty copy cat css from silphroad, modified a bit
+ */
+
+.group-buddy-section {
+  display: flex;
+  width: calc(100% + 6px);
+  float: none;
+  margin: 0 0 0 -15px;
+
+  .group-buddy-left {
+    flex: 1;
+    display: table-cell;
+    float: none;
+    vertical-align: top;
+    position: relative;
+    color: #7d7d7d;
+    text-align: center;
+    background: #dfdfdf;
+    padding: 11px 4px 2px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    line-height: 31px;
+  }
+  .group-buddy-center {
+    flex: 1;
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+    position: relative;
+    color: #6f6f6f;
+    text-align: center;
+    background: #f0f0f0;
+    padding: 11px 4px 13px;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 3em;
+    letter-spacing: 3px;
+  }
+  .group-buddy-right {
+    flex: 1;
+    position: relative;
+    color: #7d7d7d;
+    text-align: center;
+    background: #e4e2e2;
+    text-transform: uppercase;
+    letter-spacing:2px;
+    font-size: 14px;
+    line-height: 21px;
+    padding: 18px 4px 12px;
+  }
+}
+
+.candy-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #a7a7a7;
+  display: block;
+  line-height: 1em;
+  margin-top: 10px;
+}
+
+.candy-amount {
+  font-size: 16px;
+}
