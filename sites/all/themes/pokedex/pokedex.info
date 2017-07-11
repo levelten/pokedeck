@@ -47,3 +47,12 @@ scripts[] = 'js/navigation.js'
 
 ; Disable the CDN provider so compiled source files can be used.
 settings[bootstrap_cdn] = ''
+
+;;;;;;;;;;;;;;;;;;;;;
+;; @font-your-face
+;;;;;;;;;;;;;;;;;;;;;
+
+fonts[fontsquirrel][] = "TeX-Gyre-Adventor#texgyreadventorbold"
+fonts[fontsquirrel][] = "TeX-Gyre-Adventor#texgyreadventorbolditalic"
+fonts[fontsquirrel][] = "TeX-Gyre-Adventor#texgyreadventoritalic"
+fonts[fontsquirrel][] = "TeX-Gyre-Adventor"
