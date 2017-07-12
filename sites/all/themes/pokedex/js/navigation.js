@@ -6,13 +6,14 @@ window.onload = function()
 		switch(e.keyCode)
 		{
 			case 37:
-				window.location.href = document.getElementById('prev').href;
+				prev = document.getElementById('prev');
+				if(prev != null)
+					window.location.href = prev.href;
 				break;
 			case 39:
-				window.location.href = document.getElementById('next').href;
-				break;
-			case 38:
-				window.location.href = document.getElementById('return').href;
+				next = document.getElementById('next');
+				if(next != null)
+					window.location.href = next.href;
 				break;
 		}
 
