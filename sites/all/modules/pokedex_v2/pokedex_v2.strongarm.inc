@@ -138,6 +138,9 @@ function pokedex_v2_strongarm() {
       'next_evolution' => array(
         'custom_settings' => TRUE,
       ),
+      'background' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
