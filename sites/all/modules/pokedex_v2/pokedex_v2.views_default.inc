@@ -31,7 +31,9 @@ function pokedex_v2_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'teaser';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -90,6 +92,11 @@ function pokedex_v2_views_default_views() {
   $handler->display->display_options['fields']['field_move_type']['field'] = 'field_move_type';
   $handler->display->display_options['fields']['field_move_type']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_move_type']['type'] = 'taxonomy_term_reference_plain';
+  /* Sort criterion: Content: DPS (field_move_dps) */
+  $handler->display->display_options['sorts']['field_move_dps_value']['id'] = 'field_move_dps_value';
+  $handler->display->display_options['sorts']['field_move_dps_value']['table'] = 'field_data_field_move_dps';
+  $handler->display->display_options['sorts']['field_move_dps_value']['field'] = 'field_move_dps_value';
+  $handler->display->display_options['sorts']['field_move_dps_value']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
