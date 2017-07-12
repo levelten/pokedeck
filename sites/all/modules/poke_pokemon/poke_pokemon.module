@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Pokemon feature.
+ */
+
+include_once 'poke_pokemon.features.inc';
