@@ -17,9 +17,19 @@ function pokedex_preprocess_page(&$variables) {
     foreach ($terms as $term) {
       $image = (!empty($term->field_image['und'][0]['uri'])) ? $term->field_image['und'][0]['uri'] : NULL;
       $color = (!empty($term->field_type_color['und'][0]['safe_value'])) ? $term->field_type_color['und'][0]['safe_value'] : 'rgba(0,0,0,0)';
+
+      // Add image style to type background header.
+      if (!empty($image)) {
+        $styles = image_styles();
+        if (isset($styles['top_header'])) {
+          $image = image_style_url('top_header', $image);
+        } else {
+          $image = (!empty($image)) ? file_create_url($image) : NULL;
+        }
+      }
       $attributes[$term->name] = [
         'color' => $color,
-        'image' => ($image) ? file_create_url($image) : NULL,
+        'image' => $image,
       ];
     }
 
