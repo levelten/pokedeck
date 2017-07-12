@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Move Type feature.
+ */
+
+include_once 'poke_move_type.features.inc';
